@@ -1,59 +1,34 @@
 {
-    "name": "biniou-actual",
-    "exportedEnvVars": {
-        "CAML_LD_LIBRARY_PATH": {
-            "global": true,
-            "resolveAsRelativePath": true,
-            "globalCollisionBehavior": "joinPath",
-            "val": "./_build/ocamlfind/lib/stublibs"
-        },
-        "version": {
-            "global": true,
-            "globalCollisionBehavior": "clobber",
-            "val": "1.0.12"
-        },
-        "biniou_enable": {
-            "global": true,
-            "globalCollisionBehavior": "clobber",
-            "val": "enable"
-        },
-        "FINDLIB": {
-            "global": true,
-            "resolveAsRelativePath": true,
-            "globalCollisionBehavior": "joinPath",
-            "val": "./_build/ocamlfind/lib"
-        },
-        "biniou_version": {
-            "global": true,
-            "globalCollisionBehavior": "clobber",
-            "val": "1.0.12"
-        },
-        "PATH": {
-            "global": true,
-            "resolveAsRelativePath": true,
-            "globalCollisionBehavior": "joinPath",
-            "val": "./_build/ocamlfind/bin"
-        },
-        "biniou_installed": {
-            "global": true,
-            "globalCollisionBehavior": "clobber",
-            "val": "true"
-        }
-    },
+    "name": "biniou",
     "version": "1.0.12",
     "dependencies": {
-        "@opam-alpha/easy-format": "*",
-        "@opam-alpha/ocamlfind": "*",
-        "@opam-alpha/conf-which": "*",
-        "dependency-env": "*",
-        "substs": "https://github.com/yunxing/substs.git",
-        "nopam": "*",
-        "opam-installer-bin": "https://github.com/yunxing/opam-installer-bin.git"
+        "easy-format": "andreypopp/easy-format#esy",
+        "ocamlfind": "andreypopp/ocamlfind#esy",
+        "conf-which": "andreypopp/conf-which#esy",
+        "opam-installer-bin": "andreypopp/opam-installer-bin"
     },
-    "scripts": {
-        "postinstall": "eval $(dependencyEnv) && nopam && make && make install BINDIR=$opam_bin && (opam-installer --prefix=$opam_prefix || true)"
+    "esy": {
+        "build": [
+            "make",
+            "make install BINDIR=$cur__bin",
+            "(opam-installer --prefix=$cur__install || true)"
+        ],
+        "exportedEnv": {
+            "biniou_enable": {
+                "scope": "global",
+                "val": "enable"
+            },
+            "biniou_version": {
+                "scope": "global",
+                "val": "1.0.12"
+            },
+            "biniou_installed": {
+                "scope": "global",
+                "val": "true"
+            }
+        }
     },
     "peerDependencies": {
-        "@opam-alpha/ocaml": ">= 4.00.0"
+        "ocaml": "andreypopp/ocaml#esy"
     }
 }
